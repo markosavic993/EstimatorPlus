@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <title>Estimator Plus</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://use.fontawesome.com/512b7a88f1.js"></script>
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"/>
+
+</head>
+<body>
+<div class="container">
+
+  <!--MENU-->
+  <div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+
+      <div class="navbar-header pull-left">
+        <a class="navbar-brand" href="index.html">EstimatorPlus</a>
+      </div>
+      <div class="navbar-header pull-right">
+        <button type="button" class="navbar-toggle"
+                data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <p class="navbar-text">
+          <a href="#" class="navbar-link"><strong>Logout</strong></a>&nbsp;
+        </p>
+      </div>
+
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#"><i class="fa fa-home"></i> Home</a></li>
+          <li><a href="#"><i class="fa fa-book"></i> Administration</a></li>
+          <li><a th:href="@{/organize-estimation}"><i class="fa fa-calculator"></i> Organize estimation</a></li>
+          <li><a href="#"><i class="fa fa-drivers-license"></i> Personal info</a></li>
+          <li><a href="#"><i class="fa fa-info-circle"></i> About</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+  <!--END OF MENU-->
+  <div class="jumbotron">
+    <h1>Super Estimator App</h1>
+    <h2>Expert system solution for improved estimations in Scrum teams! <i class="fa fa-code fa-5" style="color: cornflowerblue; font-size: 32px"></i></h2>
+  </div>
+  <table class="table table-striped">
+    <thead>
+    <th>Username</th>
+    <th>Email</th>
+    <th>Team</th>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${personList}">
+      <td th:text="${user.username}"></td>
+      <td th:text="${user.email}"></td>
+      <td th:text="${user.team.teamName}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+</html>

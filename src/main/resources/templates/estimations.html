@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Estimator Plus</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/512b7a88f1.js"></script>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"/>
+    <link rel='stylesheet' type='text/css' href='/css/estimations.css'/>
+
+    <script src="/js/estimations.js"></script>
+
+</head>
+<body>
+<div class="container">
+
+    <!--MENU-->
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+
+            <div class="navbar-header pull-left">
+                <a class="navbar-brand" href="index.html">EstimatorPlus</a>
+            </div>
+            <div class="navbar-header pull-right">
+                <button type="button" class="navbar-toggle"
+                        data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <p class="navbar-text">
+                    <a href="#" class="navbar-link"><strong>Logout</strong></a>&nbsp;
+                </p>
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                    <li><a href="#"><i class="fa fa-book"></i> Administration</a></li>
+                    <li class="active"><a href="#"><i class="fa fa-calculator"></i> Organize estimation</a></li>
+                    <li><a href="#"><i class="fa fa-drivers-license"></i> Personal info</a></li>
+                    <li><a href="#"><i class="fa fa-info-circle"></i> About</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <!--END OF MENU-->
+
+    <div class="row">
+        <section>
+            <div class="wizard">
+                <div class="wizard-inner">
+                    <div class="connecting-line"></div>
+                    <ul class="nav nav-tabs" role="tablist">
+
+                        <li role="presentation" class="active">
+                            <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-list-alt"></i>
+                            </span>
+                            </a>
+                        </li>
+
+                        <li role="presentation" class="disabled">
+                            <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-cog"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li role="presentation" class="disabled">
+                            <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-user"></i>
+                            </span>
+                            </a>
+                        </li>
+
+                        <li role="presentation" class="disabled">
+                            <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
+                            <span class="round-tab">
+                                <i class="glyphicon glyphicon-ok"></i>
+                            </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <form role="form">
+                    <div class="tab-content">
+                        <div class="tab-pane active" role="tabpanel" id="step1">
+                            <h3>Step 1 - Create Project</h3>
+                            <!--STEP 1 CONTENT-->
+
+                            <div style="display: block">
+                                <form class="form-vertical" style="display:block;">
+                                    <fieldset style="display: block">
+
+                                        <!-- Form Name -->
+                                        <legend>Fill Form With Project Data</legend>
+
+                                        <!-- Text input-->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="textinput">Name</label>
+                                            <div class="col-md-6">
+                                                <input id="textinput" name="textinput" type="text"
+                                                       placeholder="Enter name of the story/project"
+                                                       class="form-control input-md" required=""/>
+
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <br/>
+                                        <!-- Select Basic -->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="type">Type</label>
+                                            <div class="col-md-6">
+                                                <select id="type" name="type" class="form-control">
+                                                    <option value="1">Option one</option>
+                                                    <option value="2">Option two</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <br/>
+                                        <!-- Select Basic -->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="protocol">Communication
+                                                Protocol</label>
+                                            <div class="col-md-6">
+                                                <select id="protocol" name="protocol" class="form-control">
+                                                    <option value="1">Option one</option>
+                                                    <option value="2">Option two</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <br/>
+                                        <!-- Multiple Checkboxes -->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label"
+                                                   for="stakeholders">Stakeholders</label>
+                                            <div class="col-md-4" id="stakeholders">
+                                                <div class="checkbox">
+                                                    <label for="stakeholders-0">
+                                                        <input type="checkbox" name="stakeholders" id="stakeholders-0"
+                                                               value="1"/>
+                                                        Option one
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label for="stakeholders-1">
+                                                        <input type="checkbox" name="stakeholders" id="stakeholders-1"
+                                                               value="2"/>
+                                                        Option two
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <br/>
+                                        <br/>
+
+                                        <!-- Text input-->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="domain">Domain</label>
+                                            <div class="col-md-6">
+                                                <input id="domain" name="domain" type="text"
+                                                       placeholder="Enter project/story domain"
+                                                       class="form-control input-md" required=""/>
+
+                                            </div>
+                                        </div>
+
+                                        <br/>
+                                        <br/>
+
+                                        <!-- Select Basic -->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="uiimpact">UI Impact</label>
+                                            <div class="col-md-6">
+                                                <select id="uiimpact" name="uiimpact" class="form-control">
+                                                    <option value="1">Option one</option>
+                                                    <option value="2">Option two</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <br/>
+
+                                        <!-- Multiple Checkboxes -->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="testing">Testing Effort</label>
+                                            <div class="col-md-4" id="testing">
+                                                <div class="checkbox">
+                                                    <label for="testing-0">
+                                                        <input type="checkbox" name="testing" id="testing-0" value="1"/>
+                                                        Unit tests
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label for="testing-1">
+                                                        <input type="checkbox" name="testing" id="testing-1" value="2"/>
+                                                        Integration tests
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label for="testing-2">
+                                                        <input type="checkbox" name="testing" id="testing-2" value="3"/>
+                                                        Javascript tests
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label for="testing-3">
+                                                        <input type="checkbox" name="testing" id="testing-3" value="4"/>
+                                                        Webtests
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <br/>
+                                        <!-- Select Multiple -->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="faetures">Features</label>
+                                            <div class="col-md-6">
+                                                <select id="faetures" name="faetures" class="form-control"
+                                                        multiple="multiple">
+                                                    <option value="1">Option one</option>
+                                                    <option value="2">Option two</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <br/>
+                                        <br/>
+                                        <!-- Select Multiple -->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="technologies">Requested
+                                                Technologies</label>
+                                            <div class="col-md-6">
+                                                <select id="technologies" name="technologies" class="form-control"
+                                                        multiple="multiple">
+                                                    <option value="1">Option one</option>
+                                                    <option value="2">Option two</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <br/>
+                                        <br/>
+                                        <!-- Select Basic -->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="refactoring">Refactoring
+                                                Level</label>
+                                            <div class="col-md-6">
+                                                <select id="refactoring" name="refactoring" class="form-control">
+                                                    <option value="1">Option one</option>
+                                                    <option value="2">Option two</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                                </form>
+                            </div>
+
+                            <ul class="list-inline pull-right">
+                                <li>
+                                    <button type="button" class="btn btn-primary next-step">Save and continue</button>
+                                </li>
+                            </ul>
+
+                            <!--STEP 1 CONTENT END-->
+                        </div>
+                        <div class="tab-pane" role="tabpanel" id="step2">
+                            <h3>Step 2 - Configure Estimator</h3>
+                            <p>This is step 2</p>
+                            <ul class="list-inline pull-right">
+                                <li>
+                                    <button type="button" class="btn btn-default prev-step">Previous</button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-primary next-step">Save and continue</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" role="tabpanel" id="step3">
+                            <h3>Step 3 - Invite Team</h3>
+                            <p>This is step 3</p>
+                            <ul class="list-inline pull-right">
+                                <li>
+                                    <button type="button" class="btn btn-default prev-step">Previous</button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-default next-step">Skip</button>
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-primary btn-info-full next-step">Save and
+                                        continue
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-pane" role="tabpanel" id="complete">
+                            <h3>Complete</h3>
+                            <p>You have successfully completed all steps.</p>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</div>
+</body>
+</html>
