@@ -17,6 +17,9 @@ public class Technology {
     private String name;
     private Popularity popularity;
 
+    public Technology() {
+    }
+
     public Technology(String name, Popularity popularity) {
         this.name = name;
         this.popularity = popularity;

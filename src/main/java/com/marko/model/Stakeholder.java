@@ -17,6 +17,9 @@ public class Stakeholder {
     @Enumerated(EnumType.STRING)
     private StakeholderType type;
 
+    public Stakeholder() {
+    }
+
     public Stakeholder(String name, StakeholderType type) {
         this.name = name;
         this.type = type;

@@ -18,6 +18,9 @@ public class Feature {
     private String name;
     private String description;
 
+    public Feature() {
+    }
+
     public Feature(String name, String description) {
         this.name = name;
         this.description = description;

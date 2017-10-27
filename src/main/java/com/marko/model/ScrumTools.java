@@ -17,6 +17,9 @@ public class ScrumTools {
     private String name;
     private String description;
 
+    public ScrumTools() {
+    }
+
     public ScrumTools(String name, String description) {
         this.name = name;
         this.description = description;

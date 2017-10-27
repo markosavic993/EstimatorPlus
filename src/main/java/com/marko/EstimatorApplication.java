@@ -4,6 +4,7 @@ import com.marko.model.Team;
 import com.marko.model.User;
 import com.marko.repository.TeamRepository;
 import com.marko.repository.UserRepository;
+import com.marko.service.DataLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,13 +24,14 @@ public class EstimatorApplication {
 	public static void main(String[] args) {
 		//SpringApplication.run(EstimatorApplication.class, args);
 		ConfigurableApplicationContext context = SpringApplication.run(EstimatorApplication.class, args);
+		DataLoader loader = context.getBean(DataLoader.class);
 
-		UserRepository userRepository = context.getBean(UserRepository.class);
-		Team teamA = new Team("A");
-		Team teamB = new Team("B");
-		userRepository.save(new User("marko", "123", teamA, "marko@gmail.com"));
-		userRepository.save(new User("teja", "123", teamB, "omaja@gmail.com"));
-		userRepository.save(new User("simon", "123", teamB, "simon@gmail.com"));
+//		Team teamA = new Team("A");
+//		Team teamB = new Team("B");
+//		userRepository.save(new User("marko", "123", teamA, "marko@gmail.com"));
+//		userRepository.save(new User("teja", "123", teamB, "omaja@gmail.com"));
+//		userRepository.save(new User("simon", "123", teamB, "simon@gmail.com"));
+		loader.initData();
 
 	}
 }

@@ -15,6 +15,9 @@ public class TeamMember {
     @Enumerated(EnumType.STRING)
     private SeniorityLevel seniorityLevel;
 
+    public TeamMember() {
+    }
+
     public TeamMember(String email, String name, SeniorityLevel seniorityLevel) {
         this.email = email;
         this.name = name;
