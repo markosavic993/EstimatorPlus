@@ -91,8 +91,8 @@
                     </ul>
                 </div>
 
-                <form role="form">
-                    <div class="tab-content">
+                <form action="#" th:object="${projectToEstimate}" th:action="@{/save-project}" method="post">
+                    <div class="tab-content" style="background-color: lightblue">
                         <div class="tab-pane active" role="tabpanel" id="step1">
                             <h3>Step 1 - Create Project</h3>
                             <!--STEP 1 CONTENT-->
@@ -110,19 +110,21 @@
                                             <div class="col-md-6">
                                                 <input id="textinput" name="textinput" type="text"
                                                        placeholder="Enter name of the story/project"
-                                                       class="form-control input-md" required=""/>
+                                                       class="form-control input-md" required="required"
+                                                       th:field="*{projectName}"/>
 
                                             </div>
                                         </div>
                                         <br/>
                                         <br/>
                                         <!-- Select Basic -->
-                                        <div class="form-group">
+                                        <div class="form-group" style="display: block">
                                             <label class="col-md-4 control-label" for="type">Type</label>
                                             <div class="col-md-6">
-                                                <select id="type" name="type" class="form-control">
-                                                    <option value="1">Option one</option>
-                                                    <option value="2">Option two</option>
+                                                <select id="type" name="type" class="form-control" th:field="*{type}">
+                                                    <option th:each="type : ${types}"
+                                                            th:value="${type}"
+                                                            th:text="${type}"></option>
                                                 </select>
                                             </div>
                                         </div>
@@ -133,36 +135,14 @@
                                             <label class="col-md-4 control-label" for="protocol">Communication
                                                 Protocol</label>
                                             <div class="col-md-6">
-                                                <select id="protocol" name="protocol" class="form-control">
-                                                    <option value="1">Option one</option>
-                                                    <option value="2">Option two</option>
+                                                <select id="protocol" name="protocol" class="form-control"
+                                                        th:field="*{communicationProtocol}">
+                                                    <option th:each="protocol : ${protocols}"
+                                                            th:value="${protocol}"
+                                                            th:text="${protocol}"></option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <br/>
-                                        <br/>
-                                        <!-- Multiple Checkboxes -->
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label"
-                                                   for="stakeholders">Stakeholders</label>
-                                            <div class="col-md-4" id="stakeholders">
-                                                <div class="checkbox">
-                                                    <label for="stakeholders-0">
-                                                        <input type="checkbox" name="stakeholders" id="stakeholders-0"
-                                                               value="1"/>
-                                                        Option one
-                                                    </label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label for="stakeholders-1">
-                                                        <input type="checkbox" name="stakeholders" id="stakeholders-1"
-                                                               value="2"/>
-                                                        Option two
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                         <br/>
                                         <br/>
 
@@ -172,67 +152,39 @@
                                             <div class="col-md-6">
                                                 <input id="domain" name="domain" type="text"
                                                        placeholder="Enter project/story domain"
-                                                       class="form-control input-md" required=""/>
+                                                       class="form-control input-md" required="required"
+                                                       th:field="*{domain}"/>
 
                                             </div>
                                         </div>
 
                                         <br/>
                                         <br/>
-
                                         <!-- Select Basic -->
                                         <div class="form-group">
                                             <label class="col-md-4 control-label" for="uiimpact">UI Impact</label>
                                             <div class="col-md-6">
-                                                <select id="uiimpact" name="uiimpact" class="form-control">
-                                                    <option value="1">Option one</option>
-                                                    <option value="2">Option two</option>
+                                                <select id="uiimpact" name="uiimpact" class="form-control"
+                                                        th:field="*{uiImpact}">
+                                                    <option th:each="impact : ${uiImpacts}"
+                                                            th:value="${impact}"
+                                                            th:text="${impact}"></option>
                                                 </select>
                                             </div>
                                         </div>
                                         <br/>
                                         <br/>
 
-                                        <!-- Multiple Checkboxes -->
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label" for="testing">Testing Effort</label>
-                                            <div class="col-md-4" id="testing">
-                                                <div class="checkbox">
-                                                    <label for="testing-0">
-                                                        <input type="checkbox" name="testing" id="testing-0" value="1"/>
-                                                        Unit tests
-                                                    </label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label for="testing-1">
-                                                        <input type="checkbox" name="testing" id="testing-1" value="2"/>
-                                                        Integration tests
-                                                    </label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label for="testing-2">
-                                                        <input type="checkbox" name="testing" id="testing-2" value="3"/>
-                                                        Javascript tests
-                                                    </label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label for="testing-3">
-                                                        <input type="checkbox" name="testing" id="testing-3" value="4"/>
-                                                        Webtests
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br/>
-                                        <br/>
                                         <!-- Select Multiple -->
                                         <div class="form-group">
                                             <label class="col-md-4 control-label" for="faetures">Features</label>
                                             <div class="col-md-6">
                                                 <select id="faetures" name="faetures" class="form-control"
-                                                        multiple="multiple">
-                                                    <option value="1">Option one</option>
-                                                    <option value="2">Option two</option>
+                                                        multiple="multiple" size="10" th:field="*{features}">
+                                                    <option style="size: 12px; border: solid blue 1px; background-color: lightblue"
+                                                            th:each="feature : ${features}"
+                                                            th:value="${feature.name}"
+                                                            th:text="${feature.name}"></option>
                                                 </select>
                                             </div>
                                         </div>
@@ -241,13 +193,36 @@
                                         <br/>
                                         <!-- Select Multiple -->
                                         <div class="form-group">
+                                            <br/>
+                                            <br/>
                                             <label class="col-md-4 control-label" for="technologies">Requested
                                                 Technologies</label>
                                             <div class="col-md-6">
-                                                <select id="technologies" name="technologies" class="form-control"
-                                                        multiple="multiple">
-                                                    <option value="1">Option one</option>
-                                                    <option value="2">Option two</option>
+                                                <select multiple="multiple" size="10" th:field="*{requestedTechnologies}"
+                                                        id="technologies" name="technologies"
+                                                        class="form-control">
+                                                    <option style="size: 12px; border: solid blue 1px; background-color: lightblue"
+                                                            th:each="technology : ${technologies}"
+                                                            th:value="${technology}"
+                                                            th:text="${technology.name}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <br/>
+                                        <br/>
+                                        <!-- Multiple Checkboxes -->
+                                        <div class="form-group" style="margin-top: 20px;">
+                                            <label class="col-md-4 control-label"
+                                                   for="stakeholders">Stakeholders</label>
+                                            <div class="col-md-6">
+                                                <select multiple="multiple" size="10" th:field="*{stakeholders}"
+                                                        id="stakeholders" name="stakeholders"
+                                                        class="form-control">
+                                                    <option style="size: 12px; border: solid blue 1px; background-color: lightblue"
+                                                            th:each="stakeholder : ${stakeholders}"
+                                                            th:value="${stakeholder}"
+                                                            th:text="${stakeholder.name}"></option>
                                                 </select>
                                             </div>
                                         </div>
@@ -259,22 +234,57 @@
                                             <label class="col-md-4 control-label" for="refactoring">Refactoring
                                                 Level</label>
                                             <div class="col-md-6">
-                                                <select id="refactoring" name="refactoring" class="form-control">
-                                                    <option value="1">Option one</option>
-                                                    <option value="2">Option two</option>
+                                                <select id="refactoring" name="refactoring"
+                                                        th:field="*{refactoringLevel}" class="form-control">
+                                                    <option th:each="level : ${refactoringLevels}"
+                                                            th:value="${level}"
+                                                            th:text="${level}"></option>
                                                 </select>
                                             </div>
                                         </div>
 
+                                        <br/>
+                                        <br/>
+
+                                        <!-- Multiple Checkboxes -->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label" for="testing">Testing Effort</label>
+                                            <div class="col-md-4" id="testing">
+                                                <div class="checkbox">
+                                                    <label for="testing-0">
+                                                        <input type="checkbox" name="unit_testing" th:field="*{unitTestsNeeded}" id="testing-0" value="1"/>
+                                                        Unit tests
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label for="testing-1">
+                                                        <input type="checkbox" name="integration_testing" th:field="*{integrationTestNeeded}" id="testing-1" value="2"/>
+                                                        Integration tests
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label for="testing-2">
+                                                        <input type="checkbox" name="js_testing" th:field="*{javascriptTestNeeded}" id="testing-2" value="3"/>
+                                                        Javascript tests
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label for="testing-3">
+                                                        <input type="checkbox" name="web_testing" th:field="*{webtestNeeded}" id="testing-3" value="4"/>
+                                                        Webtests
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </fieldset>
+                                    <ul class="list-inline pull-right">
+                                        <li>
+                                            <input type="submit" class="btn btn-primary next-step" value="Save and continue" />
+                                        </li>
+                                    </ul>
                                 </form>
                             </div>
-
-                            <ul class="list-inline pull-right">
-                                <li>
-                                    <button type="button" class="btn btn-primary next-step">Save and continue</button>
-                                </li>
-                            </ul>
 
                             <!--STEP 1 CONTENT END-->
                         </div>

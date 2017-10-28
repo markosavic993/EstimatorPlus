@@ -43,4 +43,9 @@ public class UserServiceImpl implements UserService {
                 .filter(user1 -> user.getTeam().equals(user1.getTeam()))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Optional<User> findUser(String username) {
+        return Optional.of(userRepository.getOne(username));
+    }
 }

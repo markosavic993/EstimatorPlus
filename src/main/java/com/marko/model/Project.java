@@ -62,6 +62,10 @@ public class Project {
         this.refactoringLevel = refactoringLevel;
     }
 
+    public Project() {
+
+    }
+
     public int getProjectId() {
         return projectId;
     }
