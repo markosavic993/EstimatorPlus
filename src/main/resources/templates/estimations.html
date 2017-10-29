@@ -94,7 +94,7 @@
                     </ul>
                 </div>
 
-                <form action="#" th:object="${projectToEstimate}" th:action="@{/save-project}" method="post">
+                <form action="#" th:object="${projectToEstimate}" th:action="@{/organize-estimation}" method="post">
                     <div class="tab-content" style="background-color: lightblue; padding: 5%">
                         <div class="tab-pane active" role="tabpanel" id="step1">
                             <h3>Step 1 - Create Project</h3>
@@ -364,12 +364,23 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr th:each="member, iterStat : ${teamMembers}">
+                                                <tr th:object="${inviteesObject}" th:value="${inviteeList}" th:each="member, iterStat : ${teamMembers}">
                                                     <td th:text="${iterStat.count}"></td>
                                                     <td th:text="${member.name}"></td>
                                                     <td th:text="${member.email}"></td>
                                                     <td th:text="${member.seniorityLevel}"></td>
-                                                    <td><input type="checkbox" name="invitee" /></td>
+                                                    <td>
+                                                        <select hidden="hidden" th:field="*{invitees[__${iterStat.index}__].email}">
+                                                            <option th:value="${member.email}"></option>
+                                                        </select>
+                                                        <select hidden="hidden" th:field="*{invitees[__${iterStat.index}__].name}">
+                                                            <option th:value="${member.name}"></option>
+                                                        </select>
+                                                        <select hidden="hidden" th:field="*{invitees[__${iterStat.index}__].seniorityLevel}">
+                                                            <option th:value="${member.seniorityLevel}"></option>
+                                                        </select>
+                                                        <input th:value="${member}" th:field="*{invitees[__${iterStat.index}__]}" type="checkbox" th:name="${inviteeList}" />
+                                                    </td>
                                                 </tr>
                                                 </tbody>
                                             </table>
