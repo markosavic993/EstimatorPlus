@@ -1,5 +1,6 @@
 package com.marko.service;
 
+import com.marko.model.TeamMember;
 import com.marko.repository.TeamRepository;
 import com.marko.repository.UserRepository;
 import com.marko.model.User;
@@ -48,4 +49,5 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findUser(String username) {
         return Optional.of(userRepository.getOne(username));
     }
+
 }

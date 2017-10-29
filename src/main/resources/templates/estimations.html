@@ -11,8 +11,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"/>
     <link rel='stylesheet' type='text/css' href='/css/estimations.css'/>
+    <link rel='stylesheet' type='text/css' href='/css/switch.css'/>
+    <link rel='stylesheet' type='text/css' href='/css/table.css'/>
 
     <script src="/js/estimations.js"></script>
+    <script src="/js/table.js"></script>
 
 </head>
 <body>
@@ -92,7 +95,7 @@
                 </div>
 
                 <form action="#" th:object="${projectToEstimate}" th:action="@{/save-project}" method="post">
-                    <div class="tab-content" style="background-color: lightblue">
+                    <div class="tab-content" style="background-color: lightblue; padding: 5%">
                         <div class="tab-pane active" role="tabpanel" id="step1">
                             <h3>Step 1 - Create Project</h3>
                             <!--STEP 1 CONTENT-->
@@ -152,7 +155,7 @@
                                             <div class="col-md-6">
                                                 <input id="domain" name="domain" type="text"
                                                        placeholder="Enter project/story domain"
-                                                       class="form-control input-md" required="required"
+                                                       class="form-control input-md"
                                                        th:field="*{domain}"/>
 
                                             </div>
@@ -183,7 +186,7 @@
                                                         multiple="multiple" size="10" th:field="*{features}">
                                                     <option style="size: 12px; border: solid blue 1px; background-color: lightblue"
                                                             th:each="feature : ${features}"
-                                                            th:value="${feature.name}"
+                                                            th:value="${{feature}}"
                                                             th:text="${feature.name}"></option>
                                                 </select>
                                             </div>
@@ -198,12 +201,13 @@
                                             <label class="col-md-4 control-label" for="technologies">Requested
                                                 Technologies</label>
                                             <div class="col-md-6">
-                                                <select multiple="multiple" size="10" th:field="*{requestedTechnologies}"
+                                                <select multiple="multiple" size="10"
+                                                        th:field="*{requestedTechnologies}"
                                                         id="technologies" name="technologies"
                                                         class="form-control">
                                                     <option style="size: 12px; border: solid blue 1px; background-color: lightblue"
                                                             th:each="technology : ${technologies}"
-                                                            th:value="${technology}"
+                                                            th:value="${{technology}}"
                                                             th:text="${technology.name}"></option>
                                                 </select>
                                             </div>
@@ -221,7 +225,7 @@
                                                         class="form-control">
                                                     <option style="size: 12px; border: solid blue 1px; background-color: lightblue"
                                                             th:each="stakeholder : ${stakeholders}"
-                                                            th:value="${stakeholder}"
+                                                            th:value="${{stakeholder}}"
                                                             th:text="${stakeholder.name}"></option>
                                                 </select>
                                             </div>
@@ -252,25 +256,31 @@
                                             <div class="col-md-4" id="testing">
                                                 <div class="checkbox">
                                                     <label for="testing-0">
-                                                        <input type="checkbox" name="unit_testing" th:field="*{unitTestsNeeded}" id="testing-0" value="1"/>
+                                                        <input type="checkbox" name="unit_testing"
+                                                               th:field="*{unitTestsNeeded}" id="testing-0" value="1"/>
                                                         Unit tests
                                                     </label>
                                                 </div>
                                                 <div class="checkbox">
                                                     <label for="testing-1">
-                                                        <input type="checkbox" name="integration_testing" th:field="*{integrationTestNeeded}" id="testing-1" value="2"/>
+                                                        <input type="checkbox" name="integration_testing"
+                                                               th:field="*{integrationTestNeeded}" id="testing-1"
+                                                               value="2"/>
                                                         Integration tests
                                                     </label>
                                                 </div>
                                                 <div class="checkbox">
                                                     <label for="testing-2">
-                                                        <input type="checkbox" name="js_testing" th:field="*{javascriptTestNeeded}" id="testing-2" value="3"/>
+                                                        <input type="checkbox" name="js_testing"
+                                                               th:field="*{javascriptTestNeeded}" id="testing-2"
+                                                               value="3"/>
                                                         Javascript tests
                                                     </label>
                                                 </div>
                                                 <div class="checkbox">
                                                     <label for="testing-3">
-                                                        <input type="checkbox" name="web_testing" th:field="*{webtestNeeded}" id="testing-3" value="4"/>
+                                                        <input type="checkbox" name="web_testing"
+                                                               th:field="*{webtestNeeded}" id="testing-3" value="4"/>
                                                         Webtests
                                                     </label>
                                                 </div>
@@ -280,7 +290,8 @@
                                     </fieldset>
                                     <ul class="list-inline pull-right">
                                         <li>
-                                            <input type="submit" class="btn btn-primary next-step" value="Save and continue" />
+                                            <button type="button" class="btn btn-primary next-step">Save and continue
+                                            </button>
                                         </li>
                                     </ul>
                                 </form>
@@ -290,7 +301,31 @@
                         </div>
                         <div class="tab-pane" role="tabpanel" id="step2">
                             <h3>Step 2 - Configure Estimator</h3>
-                            <p>This is step 2</p>
+                            <hr />
+                            <div>
+                                <label class="col-md-4 control-label" for="with-explanations">Generate
+                                    explanation</label>
+                                <div class="col-md-6">
+                                    <label class="switch">
+                                        <input id="with-explanations" type="checkbox"
+                                               th:value="${config.withExplanations}"/>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                <br/>
+                                <br/>
+
+                                <label class="col-md-4 control-label" for="estimation-type">Estimation Type</label>
+                                <div class="col-md-6">
+                                    <select id="estimation-type" name="estimation-type"
+                                            th:value="${config.estimationType}">
+                                        <option th:each="type : ${estimationTypes}"
+                                                th:value="${type}"
+                                                th:text="${type}"></option>
+                                    </select>
+                                </div>
+
+                            </div>
                             <ul class="list-inline pull-right">
                                 <li>
                                     <button type="button" class="btn btn-default prev-step">Previous</button>
@@ -301,8 +336,49 @@
                             </ul>
                         </div>
                         <div class="tab-pane" role="tabpanel" id="step3">
-                            <h3>Step 3 - Invite Team</h3>
-                            <p>This is step 3</p>
+                            <h3>Step 3 - Invite Attendees</h3>
+                            <!--STEP 3 - START-->
+
+                            <hr />
+                            <div class="container">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Team members</h3>
+                                            </div>
+                                            <div>
+                                                <input type="text" class="form-control" id="dev-table-filter"
+                                                       data-action="filter" data-filters="#dev-table"
+                                                       placeholder="Filter Developers"/>
+                                            </div>
+                                            <table class="table table-hover" id="dev-table">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Seniority</th>
+                                                    <th>Invite</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="member, iterStat : ${teamMembers}">
+                                                    <td th:text="${iterStat.count}"></td>
+                                                    <td th:text="${member.name}"></td>
+                                                    <td th:text="${member.email}"></td>
+                                                    <td th:text="${member.seniorityLevel}"></td>
+                                                    <td><input type="checkbox" name="invitee" /></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--STEP 3 - END-->
                             <ul class="list-inline pull-right">
                                 <li>
                                     <button type="button" class="btn btn-default prev-step">Previous</button>
@@ -320,6 +396,7 @@
                         <div class="tab-pane" role="tabpanel" id="complete">
                             <h3>Complete</h3>
                             <p>You have successfully completed all steps.</p>
+                            <input type="submit" value="Proceed to estimation" class="btn btn-primary btn-info-full"/>
                         </div>
                         <div class="clearfix"></div>
                     </div>
