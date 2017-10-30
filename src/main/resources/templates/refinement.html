@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Estimator Plus</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/512b7a88f1.js"></script>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+
+</head>
+<body class="w3-dark-grey">
+<div style="padding: 5%; padding-top: 0%">
+    <div class="row w3-dark-grey">
+        <!--MENU-->
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="w3-grey" style="color: black">
+
+                <div class="navbar-header pull-left">
+                    <a class="navbar-brand" href="index.html">EstimatorPlus</a>
+                </div>
+                <div class="navbar-header pull-right">
+                    <button type="button" class="navbar-toggle"
+                            data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <p class="navbar-text">
+                        <a href="#" class="navbar-link"><strong>Logout</strong></a>&nbsp;
+                    </p>
+                </div>
+
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                        <li><a href="#"><i class="fa fa-book"></i> Administration</a></li>
+                        <li><a th:href="@{/organize-estimation}"><i class="fa fa-calculator"></i> Organize
+                            estimation</a></li>
+                        <li><a href="#"><i class="fa fa-drivers-license"></i> Personal info</a></li>
+                        <li><a href="#"><i class="fa fa-info-circle"></i> About</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div style="padding-top: 5%">
+            <div class="col-md-3">
+                <h4>Project Data</h4>
+                <table class="table table-striped table-bordered" style="color: darkblue">
+                    <thead class="info">
+                    <th>Attribute</th>
+                    <th>Values</th>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td th:text="${project.projectName}"></td>
+                    </tr>
+                    <tr>
+                        <td>Domain</td>
+                        <td th:text="${project.domain}"></td>
+                    </tr>
+                    <tr>
+                        <td>Communication protocol</td>
+                        <td th:text="${project.communicationProtocol}"></td>
+                    </tr>
+                    <tr>
+                        <td>UI Impact</td>
+                        <td th:text="${project.uiImpact}"></td>
+                    </tr>
+                    <tr>
+                        <td>Refactoring level</td>
+                        <td th:text="${project.refactoringLevel}"></td>
+                    </tr>
+                    <tr>
+                        <td>Features</td>
+                        <td th:text="${project.features}"></td>
+                    </tr>
+                    <tr>
+                        <td>Stakeholders</td>
+                        <td th:text="${project.stakeholders}"></td>
+                    </tr>
+                    <tr>
+                        <td>Technologies</td>
+                        <td th:text="${project.requestedTechnologies}"></td>
+                    </tr>
+                    <tr>
+                        <td>Unit tests needed</td>
+                        <td th:text="${project.unitTestsNeeded}"></td>
+                    </tr>
+                    <tr>
+                        <td>Integration tests needed</td>
+                        <td th:text="${project.integrationTestNeeded}"></td>
+                    </tr>
+                    <tr>
+                        <td>JS tests needed</td>
+                        <td th:text="${project.javascriptTestNeeded}"></td>
+                    </tr>
+                    <tr>
+                        <td>Webtests needed</td>
+                        <td th:text="${project.webtestNeeded}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="w3-card-4 col-md-8">
+
+                        <div class="row">
+                            <div class="w3-container w3-center col-md-3" th:each="attendee : ${attendees}">
+                                <h4>Team member</h4>
+                                <img th:attr="src=@{|/img/avatars/${attendee.avatarPath}|}" alt="Avatar"
+                                     style="width:80%"/>
+                                <h5 th:text="${attendee.teamMember.name}"></h5>
+
+                                <button class="w3-button w3-green" disabled="disabled" th:text="${attendee.estimation}"></button>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 5%">
+                            <a href="#" class="btn btn-info btn-block">Reveal estimations</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="w3-card-4">
+                            <div class="row">
+                                <div class="w3-container w3-center">
+                                    <h4>Estimator Plus</h4>
+                                    <img src="/img/avatars/estimator_avatar.jpg" alt="estimator_plus"
+                                         style="width: 80%"/>
+                                    <h5>Estimator Plus</h5>
+
+                                    <div th:switch="${context}">
+                                        <button th:case="REFINEMENT"
+                                                class="w3-button w3-green" disabled="disabled">?</button>
+                                        <button th:case="REVEALMENT"
+                                                class="w3-button w3-green" disabled="disabled" th:text="${estimation}"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,6 +1,8 @@
 package com.marko.web;
 
+import com.google.common.collect.Lists;
 import com.marko.model.*;
+import com.marko.model.context.EstimationContext;
 import com.marko.repository.FeatureRepository;
 import com.marko.repository.ProjectRepository;
 import com.marko.repository.StakeholderRepository;
@@ -11,10 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -25,8 +24,8 @@ public class MainController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private TeamService teamService;
+    //    @Autowired
+//    private TeamService teamService;
     @Autowired
     private FeatureRepository featureRepository;
     @Autowired
@@ -88,11 +87,25 @@ public class MainController {
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
-        teamService.inviteAttendees(invitees);
+        //teamService.inviteAttendees(invitees);
         int estimate = estimatorService.estimate(projectToEstimate, config);
-        projectRepository.save(projectToEstimate);
+        Project savedProject = projectRepository.save(projectToEstimate);
+        List<EstimationAtendee> attendees = invitees.stream()
+                .map(teamMember -> new EstimationAtendee(teamMember, getRandomImgPath(), "?"))
+                .collect(Collectors.toList());
 
-        return "redirect:/organize-estimation";
+        model.addAttribute("attendees", attendees);
+        model.addAttribute("project", savedProject);
+        model.addAttribute("estimation", estimate);
+        model.addAttribute("context", EstimationContext.REFINEMENT);
+
+        return "refinement";
+    }
+
+    private String getRandomImgPath() {
+        ArrayList<String> paths = Lists.newArrayList("avatar_1.jpg", "avatar_3.jpg", "avatar_4.jpg", "avatar_5.png", "avatar_6.png", "avatar_7.jpg", "avatar_8.png");
+        Random rand = new Random();
+        return paths.get(rand.nextInt(paths.size()));
     }
 
 }
