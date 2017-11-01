@@ -94,10 +94,37 @@ public class MainController {
                 .map(teamMember -> new EstimationAtendee(teamMember, getRandomImgPath(), "?"))
                 .collect(Collectors.toList());
 
-        model.addAttribute("attendees", attendees);
-        model.addAttribute("project", savedProject);
-        model.addAttribute("estimation", estimate);
-        model.addAttribute("context", EstimationContext.REFINEMENT);
+        RefinementValueObject refinementObject = new RefinementValueObject(attendees, estimate, savedProject, "", EstimationContext.REFINEMENT);
+        DataCache.addToCache(refinementObject);
+        model.addAttribute("refinementObject", refinementObject);
+
+        return "refinement";
+    }
+
+    @GetMapping("/reveal")
+    public String reveal(Model model, @RequestParam("objectId") int id) {
+
+        RefinementValueObject refinementObject = DataCache.getFromCache(id);
+
+        refinementObject.getAttendees().forEach(estimationAttendee -> estimationAttendee.setEstimation("5"));
+        refinementObject.setContext(EstimationContext.REVEALMENT);
+        refinementObject.setExplanationText("Lorem Ipsum");
+
+        model.addAttribute("refinementObject", refinementObject);
+
+        return "refinement";
+    }
+
+    @GetMapping("/refinement")
+    public String newRound(Model model, @RequestParam("objectId") int id) {
+
+        RefinementValueObject refinementObject = DataCache.getFromCache(id);
+
+        refinementObject.getAttendees().forEach(estimationAttendee -> estimationAttendee.setEstimation("?"));
+        refinementObject.setContext(EstimationContext.REFINEMENT);
+        refinementObject.setExplanationText("");
+
+        model.addAttribute("refinementObject", refinementObject);
 
         return "refinement";
     }
