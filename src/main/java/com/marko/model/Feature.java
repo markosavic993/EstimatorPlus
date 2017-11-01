@@ -62,4 +62,9 @@ public class Feature {
     public void setFeatureId(int featureId) {
         this.featureId = featureId;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }
