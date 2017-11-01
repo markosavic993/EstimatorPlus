@@ -3,10 +3,7 @@ package com.marko.web;
 import com.google.common.collect.Lists;
 import com.marko.model.*;
 import com.marko.model.context.EstimationContext;
-import com.marko.repository.FeatureRepository;
-import com.marko.repository.ProjectRepository;
-import com.marko.repository.StakeholderRepository;
-import com.marko.repository.TechnologyRepository;
+import com.marko.repository.*;
 import com.marko.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +23,8 @@ public class MainController {
     private UserService userService;
     //    @Autowired
 //    private TeamService teamService;
+    @Autowired
+    private TeamRepository teamRepository;
     @Autowired
     private FeatureRepository featureRepository;
     @Autowired
@@ -87,8 +86,10 @@ public class MainController {
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
+        Team team = fetchTeam(invitees);
+
         //teamService.inviteAttendees(invitees);
-        int estimate = estimatorService.estimate(projectToEstimate, config);
+        int estimate = estimatorService.estimate(projectToEstimate, team, config);
         Project savedProject = projectRepository.save(projectToEstimate);
         List<EstimationAtendee> attendees = invitees.stream()
                 .map(teamMember -> new EstimationAtendee(teamMember, getRandomImgPath(), "?"))
@@ -99,6 +100,14 @@ public class MainController {
         model.addAttribute("refinementObject", refinementObject);
 
         return "refinement";
+    }
+
+    private Team fetchTeam(List<TeamMember> invitees) {
+        return teamRepository.findAll()
+                .stream()
+                .filter(team -> team.getMembers().contains(invitees.get(0)))
+                .findFirst()
+                .get();
     }
 
     @GetMapping("/reveal")

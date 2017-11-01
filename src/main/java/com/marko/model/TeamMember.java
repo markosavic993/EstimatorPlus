@@ -1,6 +1,7 @@
 package com.marko.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * Created by msav on 7/31/2017.
@@ -46,5 +47,20 @@ public class TeamMember {
 
     public void setSeniorityLevel(SeniorityLevel seniorityLevel) {
         this.seniorityLevel = seniorityLevel;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TeamMember that = (TeamMember) o;
+        return Objects.equals(getEmail(), that.getEmail()) &&
+                Objects.equals(getName(), that.getName()) &&
+                getSeniorityLevel() == that.getSeniorityLevel();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getEmail(), getName(), getSeniorityLevel());
     }
 }
