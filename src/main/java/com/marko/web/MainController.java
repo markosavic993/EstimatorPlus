@@ -119,7 +119,7 @@ public class MainController {
 
         refinementObject.getAttendees().forEach(estimationAttendee -> estimationAttendee.setEstimation(createRandomEstimates(refinementObject.getEstimation())));
         refinementObject.setContext(EstimationContext.REVEALMENT);
-        refinementObject.setExplanationText(FileUtils.readFileToString(new java.io.File("file.txt")));
+        refinementObject.setExplanationText(FileUtils.readFileToString(new java.io.File("report_" + refinementObject.getProject().getProjectName())));
 
         model.addAttribute("refinementObject", refinementObject);
 
