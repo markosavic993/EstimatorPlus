@@ -11,12 +11,15 @@ import java.util.List;
 public class RefinementValueObject {
 
     private List<EstimationAtendee> attendees;
-    private String estimation;
+    private int estimation;
     private Project project;
     private String explanationText;
     private EstimationContext context;
 
-    public RefinementValueObject(List<EstimationAtendee> attendees, String estimation, Project project, String explanationText, EstimationContext context) {
+    public RefinementValueObject() {
+    }
+
+    public RefinementValueObject(List<EstimationAtendee> attendees, int estimation, Project project, String explanationText, EstimationContext context) {
         this.attendees = attendees;
         this.estimation = estimation;
         this.project = project;
@@ -28,7 +31,7 @@ public class RefinementValueObject {
         return attendees;
     }
 
-    public String getEstimation() {
+    public int getEstimation() {
         return estimation;
     }
 
@@ -48,7 +51,7 @@ public class RefinementValueObject {
         this.attendees = attendees;
     }
 
-    public void setEstimation(String estimation) {
+    public void setEstimation(int estimation) {
         this.estimation = estimation;
     }
 

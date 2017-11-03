@@ -89,7 +89,7 @@ public class MainController {
         Team team = fetchTeam(invitees);
 
         //teamService.inviteAttendees(invitees);
-        String estimate = estimatorService.estimate(projectToEstimate, team, config);
+        int estimate = estimatorService.estimate(projectToEstimate, team, config);
         Project savedProject = projectRepository.save(projectToEstimate);
         List<EstimationAtendee> attendees = invitees.stream()
                 .map(teamMember -> new EstimationAtendee(teamMember, getRandomImgPath(), "?"))
@@ -115,7 +115,7 @@ public class MainController {
 
         RefinementValueObject refinementObject = DataCache.getFromCache(id);
 
-        refinementObject.getAttendees().forEach(estimationAttendee -> estimationAttendee.setEstimation(createRandomEstimates(refinementObject.getEstimation())));
+        refinementObject.getAttendees().forEach(estimationAttendee -> estimationAttendee.setEstimation("5"));
         refinementObject.setContext(EstimationContext.REVEALMENT);
         refinementObject.setExplanationText("Lorem Ipsum");
 
@@ -136,19 +136,6 @@ public class MainController {
         model.addAttribute("refinementObject", refinementObject);
 
         return "refinement";
-    }
-
-    private String createRandomEstimates(String estimation) {
-        Random rand = new Random();
-        ArrayList<String> storyPoints = Lists.newArrayList("1", "3", "5", "8", "13", "21", "34", "55");
-        ArrayList<String> tshirtSizes = Lists.newArrayList("XS", "S", "M", "L", "XL", "XXL");
-
-        try {
-            Integer.parseInt(estimation);
-            return storyPoints.get(rand.nextInt(storyPoints.size()));
-        } catch (Exception ex) {
-            return tshirtSizes.get(rand.nextInt(tshirtSizes.size()));
-        }
     }
 
     private String getRandomImgPath() {
