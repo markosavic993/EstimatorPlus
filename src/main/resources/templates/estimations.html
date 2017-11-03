@@ -302,12 +302,14 @@
                         <div class="tab-pane" role="tabpanel" id="step2">
                             <h3>Step 2 - Configure Estimator</h3>
                             <hr />
-                            <div>
+                            <div th:object="${config}">
                                 <label class="col-md-4 control-label" for="with-explanations">Generate
                                     explanation</label>
                                 <div class="col-md-6">
                                     <label class="switch">
-                                        <input id="with-explanations" type="checkbox"
+                                        <input id="with-explanations"
+                                               type="checkbox"
+                                               checked="true"
                                                th:value="${config.withExplanations}"/>
                                         <span class="slider round"></span>
                                     </label>
@@ -317,8 +319,10 @@
 
                                 <label class="col-md-4 control-label" for="estimation-type">Estimation Type</label>
                                 <div class="col-md-6">
-                                    <select id="estimation-type" name="estimation-type"
-                                            th:value="${config.estimationType}">
+                                    <select id="estimation-type"
+                                            name="estimation-type"
+                                            th:value="${config.estimationType}"
+                                            th:field="*{estimationType}" >
                                         <option th:each="type : ${estimationTypes}"
                                                 th:value="${type}"
                                                 th:text="${type}"></option>

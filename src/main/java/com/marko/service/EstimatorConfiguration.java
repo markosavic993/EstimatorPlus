@@ -4,7 +4,7 @@ package com.marko.service;
  * Created by msav on 10/28/2017.
  */
 public class EstimatorConfiguration {
-    private boolean withExplanations;
+    private boolean withExplanations = true;
     private EstimationType estimationType;
 
     public EstimatorConfiguration() {

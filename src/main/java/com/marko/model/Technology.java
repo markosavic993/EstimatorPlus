@@ -48,4 +48,9 @@ public class Technology {
     public void setPopularity(Popularity popularity) {
         this.popularity = popularity;
     }
+
+    @Override
+    public String toString() {
+        return this.getName();
+    }
 }

@@ -1,7 +1,11 @@
 package com.marko.model;
 
+import com.google.common.base.Strings;
+import org.apache.tomcat.util.buf.StringUtils;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by msav on 7/31/2017.
@@ -176,5 +180,29 @@ public class Project {
 
     public void setRefactoringLevel(RefactoringLevel refactoringLevel) {
         this.refactoringLevel = refactoringLevel;
+    }
+
+    public String printFeatures() {
+        List<String> featuresNames = features.stream()
+                .map(feature -> feature.getName())
+                .collect(Collectors.toList());
+
+        return StringUtils.join(featuresNames, ',');
+    }
+
+    public String printStakeholders() {
+        List<String> stakeholdersNames = stakeholders.stream()
+                .map(stakeholder -> stakeholder.getName())
+                .collect(Collectors.toList());
+
+        return StringUtils.join(stakeholdersNames, ',');
+    }
+
+    public String printTechnologies() {
+        List<String> technologiesNames = requestedTechnologies.stream()
+                .map(technology -> technology.getName())
+                .collect(Collectors.toList());
+
+        return StringUtils.join(technologiesNames, ',');
     }
 }

@@ -48,4 +48,9 @@ public class Stakeholder {
     public void setType(StakeholderType type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }
