@@ -5,11 +5,13 @@ import com.marko.model.*;
 import com.marko.model.context.EstimationContext;
 import com.marko.repository.*;
 import com.marko.service.*;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -111,13 +113,13 @@ public class MainController {
     }
 
     @GetMapping("/reveal")
-    public String reveal(Model model, @RequestParam("objectId") int id) {
+    public String reveal(Model model, @RequestParam("objectId") int id) throws IOException {
 
         RefinementValueObject refinementObject = DataCache.getFromCache(id);
 
         refinementObject.getAttendees().forEach(estimationAttendee -> estimationAttendee.setEstimation(createRandomEstimates(refinementObject.getEstimation())));
         refinementObject.setContext(EstimationContext.REVEALMENT);
-        refinementObject.setExplanationText("Lorem Ipsum");
+        refinementObject.setExplanationText(FileUtils.readFileToString(new java.io.File("file.txt")));
 
         model.addAttribute("refinementObject", refinementObject);
 
@@ -152,7 +154,7 @@ public class MainController {
     }
 
     private String getRandomImgPath() {
-        ArrayList<String> paths = Lists.newArrayList("avatar_1.jpg", "avatar_3.jpg", "avatar_4.jpg", "avatar_5.png", "avatar_6.png", "avatar_7.jpg", "avatar_8.png");
+        ArrayList<String> paths = Lists.newArrayList("avatar_1.jpg", "avatar_3.jpg", "avatar_4.jpg", "avatar_5.png", "avatar_6.png", "avatar_7.jpg");
         Random rand = new Random();
         return paths.get(rand.nextInt(paths.size()));
     }

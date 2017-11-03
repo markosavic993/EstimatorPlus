@@ -148,6 +148,10 @@
                                     <button th:if="${refinementObject.context.contextName} eq 'revealment'"
                                             class="w3-button w3-green" disabled="disabled"
                                             th:text="${refinementObject.estimation}"></button>
+                                    <div>
+                                        <p th:if="${refinementObject.context.contextName} eq 'revealment'"
+                                        th:text="${refinementObject.explanationText}"></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
