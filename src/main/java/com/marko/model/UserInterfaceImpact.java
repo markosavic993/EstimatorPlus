@@ -6,6 +6,6 @@ package com.marko.model;
 public enum UserInterfaceImpact {
     NONE,
     SMALL,
-    AVARAGE,
+    AVERAGE,
     LARGE;
 }

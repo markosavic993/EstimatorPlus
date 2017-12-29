@@ -39,7 +39,7 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#"><i class="fa fa-home"></i> Home</a></li>
                         <li><a href="#"><i class="fa fa-book"></i> Administration</a></li>
-                        <li><a th:href="@{/organize-estimation}"><i class="fa fa-calculator"></i> Organize
+                        <li><a th:href="@{/estimator/organize-estimation}"><i class="fa fa-calculator"></i> Organize
                             estimation</a></li>
                         <li><a href="#"><i class="fa fa-drivers-license"></i> Personal info</a></li>
                         <li><a href="#"><i class="fa fa-info-circle"></i> About</a></li>
@@ -126,11 +126,11 @@
                         <div class="row" style="margin-top: 5%">
                             <a th:if="${refinementObject.context.contextName} eq 'refinement'"
                                href="#"
-                               th:href="@{/reveal(objectId=(${refinementObject.project.projectId}))}"
+                               th:href="@{/estimator/reveal(objectId=(${refinementObject.project.projectId}))}"
                                class="btn btn-info btn-block">Reveal estimations</a>
                             <a th:if="${refinementObject.context.contextName} eq 'revealment'"
                                href="#"
-                               th:href="@{/refinement(objectId=(${refinementObject.project.projectId}))}"
+                               th:href="@{/estimator/refinement(objectId=(${refinementObject.project.projectId}))}"
                                class="btn btn-info btn-block">New Round</a>
                         </div>
                     </div>

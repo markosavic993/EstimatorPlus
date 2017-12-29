@@ -19,7 +19,8 @@ import java.util.stream.Collectors;
  * Created by msav on 8/1/2017.
  */
 @Controller
-public class MainController {
+@RequestMapping("/estimator")
+public class AppController {
 
     @Autowired
     private UserService userService;
@@ -37,22 +38,6 @@ public class MainController {
     private ProjectRepository projectRepository;
     @Autowired
     private EstimatorService estimatorService;
-
-    @RequestMapping("/")
-    public String showIndex(Model model) {
-        model.addAttribute("user", new User());
-        return "login"; // return index.html Template
-    }
-
-    @RequestMapping(method = RequestMethod.POST, path = "/login")
-    public String handleLogin(@ModelAttribute("SpringWeb") User user, Model model) {
-        //personList.forEach(user -> System.out.println(user.getEmail()));
-        Optional<User> userFromDatabase = userService.findUser(user);
-        model.addAttribute("user", userFromDatabase.get());
-        List<User> personList = userService.loadAllFromTeam(userFromDatabase.get());
-        model.addAttribute("personList", personList);
-        return "index";
-    }
 
     @RequestMapping("/organize-estimation")
     public String navigateToEstimations(Model model) {
